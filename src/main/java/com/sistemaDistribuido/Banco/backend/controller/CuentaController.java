@@ -13,10 +13,6 @@ public class CuentaController{
 
     private CuentaService cuentaService;
 
-    public CuentaController(CuentaService cuentaService) {
-        this.cuentaService = cuentaService;
-    }
-
     public CuentaController() {
     }
 
