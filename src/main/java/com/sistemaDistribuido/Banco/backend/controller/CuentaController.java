@@ -24,18 +24,18 @@ public class CuentaController{
         return this.cuentaService.consultarSaldo();
         }
 
-        @PutMapping("/depositar")
-        public Cuenta depositar( @RequestParam int monto) {
-            return this.cuentaService.depositar(monto);
+        @PostMapping("/depositar")
+        public Cuenta depositar( @RequestParam Cuenta cantidad) {
+            return this.cuentaService.depositar(cantidad);
         }
 
-    @PutMapping("/extraer")
-    public Cuenta extraccion( @RequestParam int monto) {
-        return this.cuentaService.extraccion(monto);
+    @PostMapping("/extraer")
+    public Cuenta extraccion( @RequestParam Cuenta cantidad) {
+        return this.cuentaService.extraccion(cantidad);
     }
-    @PutMapping("/interes")
-    public Cuenta interes( @RequestParam int monto,int interes) {
-        return this.cuentaService.interes(monto,interes);
+    @PostMapping("/interes")
+    public Cuenta interes( @RequestParam int interes) {
+        return this.cuentaService.interes(interes);
     }
 
 

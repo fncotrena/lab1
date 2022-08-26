@@ -7,6 +7,7 @@ import com.sistemaDistribuido.Banco.backend.repository.TransacionesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -19,19 +20,19 @@ public class CuentaServiceImpl implements CuentaService {
 
 
 
-    public Cuenta extraccion( int cantidad) {
+    public Cuenta extraccion(Cuenta cantidad) {
         Optional<Cuenta> cuentaExt = repository.findById(1L);
-        cuentaExt.get().setSaldo(cuentaExt.get().getSaldo() - cantidad);
-        transacionesRepository.save(new Transacciones(cantidad,Transacciones.Tipo.EXTRACCION));
+        cuentaExt.get().setSaldo(cuentaExt.get().getSaldo() - cantidad.getSaldo());
+        transacionesRepository.save(new Transacciones(cantidad.getSaldo(),"EXTRACCION", LocalDateTime.now()));
         return cuentaExt.get();
     }
 
 
     @Override
-    public Cuenta depositar( int cantidad) {
+    public Cuenta depositar(Cuenta cantidad) {
         Cuenta cuentaDeposito = repository.findById(1L).get();
-        cuentaDeposito.setSaldo(cuentaDeposito.getSaldo() + cantidad);
-        transacionesRepository.save(new Transacciones(cantidad,Transacciones.Tipo.DEPOSITO));
+        cuentaDeposito.setSaldo(cuentaDeposito.getSaldo() + cantidad.getSaldo());
+        transacionesRepository.save(new Transacciones(cantidad.getSaldo(), "DEPOSITO",LocalDateTime.now()));
 
         return cuentaDeposito;
 
@@ -49,15 +50,19 @@ public class CuentaServiceImpl implements CuentaService {
     }
 
     @Override
-    public Cuenta interes(int interes, int monto) {
+    public Cuenta interes(int interes) {
         Cuenta cuentainteres = repository.findById(1L).get();
-        interes = interes +(interes/100*monto);
+        interes = interes +(interes/100*cuentainteres.getSaldo());
         cuentainteres.setSaldo(cuentainteres.getSaldo()-interes);
-        transacionesRepository.save(new Transacciones(interes,Transacciones.Tipo.INTERES));
+        // transacionesRepository.save(new Transacciones(interes,Transacciones.Tipo.INTERES));
+        transacionesRepository.save(new Transacciones(interes,"INTERES",LocalDateTime.now()));
 
         return cuentainteres;
 
-        }
-
-
     }
+
+
+}
+
+
+

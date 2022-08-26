@@ -1,67 +1,44 @@
 package com.sistemaDistribuido.Banco;
+import io.restassured.RestAssured;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
-import org.junit.Before;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvcBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.lang.reflect.Executable;
-
-@SpringBootTest
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 public class Test1 {
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-    private MockMvc mockMvc;
 
-    @Before
-    public void setUp() throws Exception {
-        mockMvc = MockMvcBuilders
-                .webAppContextSetup(this.webApplicationContext)
-                .build();
+ private String urlBase="http://localhost:8080";
 
-      /*  @Test
-        public void get_deposito(){
+    @Test
+    public void Saldo() {
 
-            this.mockMvc.perform(
-                            put("/")).andExpect(status().isOk())
-                    .andExpect((ResultMatcher) content().contentType("application/json"))
-                    .andExpect(jsonPath("$.balance").value(1000);
+       RestAssured
+                .given()
+                .baseUri(urlBase)
+                .and()
+                .queryParam("format", "json")
+                .when()
+                .get("/cuentas/saldo")
+                .then()
+                .log().all()
+                .and().assertThat().statusCode(is(equalTo(200)))
+               .and().body("saldo", Matchers.equalTo( 2000));
 
+    }
+    @Test
+    public void Extraccion() {
+        RestAssured
+                .given()
+                .request().param("id",1,"saldo",2000)
+                .baseUri(urlBase)
+                .and()
+                .queryParam("format", "json")
+                .when()
+                .post("/cuentas/depositar")
+                .then()
+                .log().all()
+                .and().assertThat().statusCode(is(equalTo(200)))
+                .and().body("saldo", Matchers.equalTo( 0));
+    }
 
-        }
-
-        @Test
-        public void get_balance(){
-
-            this.mockMvc.perform(
-                    get("/balance")).andExpect(status().isOk())
-                            .andExpect((ResultMatcher) content().contentType("application/json"))
-                    .andExpect(jsonPath("$.balance").value(1000);
-
-
-        }
-
-}*/
-
-}}
+}

@@ -2,20 +2,25 @@ package com.sistemaDistribuido.Banco.backend.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Entity
 public class Transacciones {
     private @Id
     @GeneratedValue Long id;
     private double monto;
-    private Tipo tipo;
+    private String tipo;
+    private LocalDateTime fecha;
 
-    public Transacciones() {
-    }
-
-    public Transacciones(double monto, Tipo tipo) {
+    public Transacciones(double monto, String tipo, LocalDateTime fecha) {
+        this.id = id;
         this.monto = monto;
         this.tipo = tipo;
+        this.fecha = fecha;
+    }
+
+    public Transacciones() {
+
     }
 
     public Long getId() {
@@ -34,20 +39,19 @@ public class Transacciones {
         this.monto = monto;
     }
 
-    public Tipo getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(Tipo tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
-    public enum Tipo
-    {
-        DEPOSITO,
-        EXTRACCION,
-        INTERES
-
+    public LocalDateTime getFecha() {
+        return fecha;
     }
 
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
+    }
 }
