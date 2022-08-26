@@ -2,6 +2,7 @@ package com.sistemaDistribuido.Banco.backend.controller;
 
 import com.sistemaDistribuido.Banco.backend.model.Transacciones;
 import com.sistemaDistribuido.Banco.backend.service.TransaccionesService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,15 +12,10 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/transacciones", produces = "application/json")
 public class TransaccionController {
-
+    @Autowired
     TransaccionesService transaccionesService;
 
-    public TransaccionController() {
-    }
 
-    public TransaccionController(TransaccionesService transaccionesService) {
-        this.transaccionesService = transaccionesService;
-    }
 
     @GetMapping("/balance")
     public double balance() {

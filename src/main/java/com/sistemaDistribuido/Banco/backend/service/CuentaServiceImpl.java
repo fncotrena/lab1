@@ -4,23 +4,19 @@ import com.sistemaDistribuido.Banco.backend.model.Cuenta;
 import com.sistemaDistribuido.Banco.backend.model.Transacciones;
 import com.sistemaDistribuido.Banco.backend.repository.CuentaRepository;
 import com.sistemaDistribuido.Banco.backend.repository.TransacionesRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 public class CuentaServiceImpl implements CuentaService {
-
+    @Autowired
     private CuentaRepository repository;
+    @Autowired
     private TransacionesRepository transacionesRepository;
 
-    public CuentaServiceImpl() {
-    }
 
-    public CuentaServiceImpl(CuentaRepository repository, TransacionesRepository transacionesRepository) {
-        this.repository = repository;
-        this.transacionesRepository = transacionesRepository;
-    }
 
 
     public Cuenta extraccion( int cantidad) {

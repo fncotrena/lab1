@@ -7,15 +7,15 @@ import javax.persistence.Id;
 public class Cuenta {
     private @Id
     @GeneratedValue
-    Long numeroCuenta;
+    Long id;
     private int saldo;
 
-    public Long getNumeroCuenta() {
-        return numeroCuenta;
+    public Long getId() {
+        return id;
     }
 
-    public void setNumeroCuenta(Long numeroCuenta) {
-        this.numeroCuenta = numeroCuenta;
+    public void setId(Long numeroCuenta) {
+        this.id = numeroCuenta;
     }
 
     public int getSaldo() {

@@ -10,11 +10,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/cuentas", produces = "application/json")
 public class CuentaController{
 
-
+    @Autowired
     private CuentaService cuentaService;
 
-    public CuentaController() {
-    }
 
     @GetMapping("")
     public Iterable<Cuenta> all() {
