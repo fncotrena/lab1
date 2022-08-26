@@ -52,10 +52,10 @@ public class CuentaServiceImpl implements CuentaService {
     @Override
     public Cuenta interes(int interes) {
         Cuenta cuentainteres = repository.findById(1L).get();
-        interes = interes +(interes/100*cuentainteres.getSaldo());
-        cuentainteres.setSaldo(cuentainteres.getSaldo()-interes);
+        int i = cuentainteres.getSaldo()*interes/100;
+        cuentainteres.setSaldo(cuentainteres.getSaldo()-i);
         // transacionesRepository.save(new Transacciones(interes,Transacciones.Tipo.INTERES));
-        transacionesRepository.save(new Transacciones(interes,"INTERES",LocalDateTime.now()));
+        transacionesRepository.save(new Transacciones(i,"INTERES",LocalDateTime.now()));
 
         return cuentainteres;
 
